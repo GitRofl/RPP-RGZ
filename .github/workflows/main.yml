@@ -35,13 +35,14 @@ jobs:
       - name: Generate OpenAPI YAML
         run: python generate_openapi.py
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install Redocly
-        run: npm i -g @redocly/cli@latest
+        run:  |
+         npm i -g @redocly/cli@latest
 
       - name: Build API Docs
         run: redocly build-docs docs/openapi.yaml
