@@ -77,4 +77,4 @@ def delete_contact(id):
     return jsonify({"message": "Контакт удалён"}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
