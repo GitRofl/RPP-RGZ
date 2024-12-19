@@ -1,0 +1,44 @@
+name: Generate API Docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install bandit
+      - name: Run Bandit security check
+        run: bandit -r .
+
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install flask flasgger pyyaml
+      - name: Generate OpenAPI YAML
+        run: python generate_openapi.py
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Redocly
+        run: npm i -g @redocly/cli@latest
+      - name: Build API Docs
+        run: redocly build-docs docs/openapi.yaml
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./redoc-static
