@@ -14,10 +14,10 @@ paths:
         schema:
           properties:
             name:
-              example: John Doe
+              example: artem
               type: string
             phone:
-              example: '+123456789'
+              example: '+79232334666'
               type: string
           type: object
       responses:

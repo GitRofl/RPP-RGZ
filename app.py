@@ -21,10 +21,10 @@ def create_contact():
           properties:
             name:
               type: string
-              example: John Doe
+              example: artem
             phone:
               type: string
-              example: "+123456789"
+              example: "+79232334666"
     responses:
       201:
         description: Контакт создан
